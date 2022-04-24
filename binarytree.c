@@ -25,25 +25,30 @@ struct node *insertatright(struct node *root,int data)
 }
 void inorder(struct node *root)
 {
-   
-    inorder(root->left);
-    printf("%d ",root->data);
-    inorder(root->right);
+    if(root!=NULL)
+    {
+     inorder(root->left);
+     printf("%d ",root->data);
+     inorder(root->right);
+    }
+        
 }
 void postorder(struct node *root)
 {
-    
-    postorder(root->left);
-    postorder(root->right);
-     printf("%d ",root->data);
+     if(root!=NULL)
+    {   postorder(root->left);
+        postorder(root->right);
+        printf("%d ",root->data);
+    }
      
 }
  void preorder(struct node *root)
 {
-   
-    printf("%d ",root->data);
-    postorder(root->left);
-    postorder(root->right);
+    if(root!=NULL)
+    { printf("%d ",root->data);
+    preorder(root->left);
+    preorder(root->right);
+    }
     
 }
 void main()
@@ -53,10 +58,10 @@ void main()
     insertatright(root,4);
     insertatleft(root->left,5);
     insertatright(root->left,6);
-    printf("inorder traversal \n");
+    printf("inorder traversal:");
     inorder(root);
-    printf("preorder traversal \n");
+    printf("\n preorder traversal: ");
     preorder(root);
-    printf("postorder traversal \n");
+    printf("\n postorder traversal:");
     postorder(root);
 }
