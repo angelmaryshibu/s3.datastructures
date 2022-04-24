@@ -3,75 +3,60 @@
 struct node
 {
     int data;
-    struct node *llink;
-    struct node *rlink;
+    struct node *left,*right;
 };
-struct node *ptr,*root=NULL;
-struct node *createnode()
-{   struct node *new=malloc(sizeof(struct node));
-    if(new==NULL)
-    {
-        printf("no space");
-        return 0;
-    }
-    printf("enter the data to be inserted");
-    scanf("%d",&new->data);
-    new->rlink=new->llink=NULL;
+struct node *createnode(int data)
+{
+    struct node *new = malloc(sizeof(struct node));
+    new->data=data;
+    new->right=NULL;
+    new->left=NULL;
     return new;
 }
-int insertatright(struct node *ptr)
+struct node *insertatleft(struct node *root,int data)
 {
-    struct node *temp;
-    temp=createnode();
-    ptr->rlink=temp;
-    return 0;
-    
+    root->left=createnode(data);
+    return root->left;
 }
-int insertatleft(struct node *ptr)
+struct node *insertatright(struct node *root,int data)
 {
-    struct node *temp;
-    temp=createnode();
-    ptr->llink=temp;
-    return 0;
-    
+    root->right=createnode(data);
+    return root->right;
 }
-int inorder(struct node *root)
+void inorder(struct node *root)
 {
    
-    inorder(root->llink);
+    inorder(root->left);
     printf("%d ",root->data);
-    inorder(root->rlink);
-    return 0;
+    inorder(root->right);
 }
-int postorder(struct node *root)
+void postorder(struct node *root)
 {
     
-    postorder(root->llink);
-    postorder(root->rlink);
+    postorder(root->left);
+    postorder(root->right);
      printf("%d ",root->data);
-     return 0;
+     
 }
- int preorder(struct node *root)
+ void preorder(struct node *root)
 {
    
     printf("%d ",root->data);
-    postorder(root->llink);
-    postorder(root->rlink);
-    return 0;
+    postorder(root->left);
+    postorder(root->right);
+    
 }
 void main()
 {
-    root=createnode();
-    insertatleft(root);
-    insertatright(root);
-    insertatleft(root->llink);
-    insertatright(root->llink);
-    insertatright(root->rlink);
-    insertatleft(root->rlink);
-    printf("inorder traversal");
+    struct node *root=createnode(2);
+    insertatleft(root,3);
+    insertatright(root,4);
+    insertatleft(root->left,5);
+    insertatright(root->left,6);
+    printf("inorder traversal \n");
     inorder(root);
-    printf("preorder traversal");
+    printf("preorder traversal \n");
     preorder(root);
-    printf("postorder traversal");
+    printf("postorder traversal \n");
     postorder(root);
 }
